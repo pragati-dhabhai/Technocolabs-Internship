@@ -8,3 +8,4 @@ from keras.losses import categorical_crossentropy
 from keras.optimizers import Adam
 from keras.regularizers import l2
 from keras.utils import np_utils
+df=pd.read_csv('/content/drive/My Drive/fer2013.csv')
