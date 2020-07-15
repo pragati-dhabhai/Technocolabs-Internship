@@ -20,4 +20,4 @@ for index, row in df.iterrows():
            X_test.append(np.array(val,'float32'))
            test_y.append(row['emotion'])
     except:
-        print(f"error occured at index :{index} and row:{row}")
+        print(f"error occured at index :{index} and row:{row}")jo
