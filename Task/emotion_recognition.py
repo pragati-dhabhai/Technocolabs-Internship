@@ -75,14 +75,18 @@ model.add(Conv2D(64, (3, 3), activation='relu'))
 model.add(Conv2D(64, (3, 3), activation='relu'))
 # model.add(BatchNormalization())
 model.add(MaxPooling2D(pool_size=(2,2), strides=(2, 2)))
-model.add(Dropout(0.5))
+model.add(Dropout(0.25))
 
 #3rd convolution layer
 model.add(Conv2D(128, (3, 3), activation='relu'))
 model.add(Conv2D(128, (3, 3), activation='relu'))
 # model.add(BatchNormalization())
 model.add(MaxPooling2D(pool_size=(2,2), strides=(2, 2)))
-
+model.add(Conv2D(512,(3,3), padding='same'))
+model.add(BatchNormalization())
+model.add(Activation('relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Dropout(0.25))
 model.add(Flatten())
 
 #fully connected neural networks
@@ -92,3 +96,22 @@ model.add(Dense(1024, activation='relu'))
 model.add(Dropout(0.2))
 
 model.add(Dense(num_labels, activation='softmax'))
+model.compile(loss=categorical_crossentropy,
+              optimizer=Adam(),
+              metrics=['accuracy'])
+
+#Training the model
+model.fit(X_train, train_y,
+          batch_size=batch_size,
+          epochs=epochs,
+          verbose=1,
+          validation_data=(X_test, test_y),
+          shuffle=True)
+
+
+#Saving the  model to  use it later on
+fer_json = model.to_json()
+with open("fer.json", "w") as json_file:
+    json_file.write(fer_json)
+model.save_weights("fer.h5")
+
