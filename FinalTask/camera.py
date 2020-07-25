@@ -1,8 +1,8 @@
 import os
 import cv2
 import numpy as np
-from keras.models import model_from_json
-from keras.preprocessing import image
+from tensorflow.keras.models import model_from_json
+from tensorflow.keras.preprocessing import image
 
 facec = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 model = model_from_json(open("fer.json", "r").read())
@@ -41,8 +41,8 @@ class VideoCamera(object):
             predicted_emotion = emotions[max_index]
 
             cv2.putText(test_img, predicted_emotion, (int(x), int(y)), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,255), 2)
-        '''resized_img = cv2.resize(fr, (1000, 700))
-        cv2.imshow('Facial emotion analysis ',resized_img)'''
+        resized_img = cv2.resize(fr, (1000, 700))
+        cv2.imshow('Facial emotion analysis ',resized_img)
 
         _, jpeg = cv2.imencode('.jpg', fr)
         return jpeg.tobytes()
